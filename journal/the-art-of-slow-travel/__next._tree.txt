@@ -2,4 +2,4 @@
 3:[["children",{"s":"__PAGE__","h":160}]]
 2:[["children",{"s":{"n":"slug","t":"d","k":"the-art-of-slow-travel","s":[]},"h":96,"c":"$Q3"}]]
 1:[["children",{"s":"journal","h":96,"c":"$Q2"}]]
-0:{"b":"rqn3dwzdneJQ40dw6_OL1","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"FhnpWoySqOhQKLHeJSPta","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
