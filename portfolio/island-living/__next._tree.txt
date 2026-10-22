@@ -1,0 +1,5 @@
+:HL["/norty-learns-to-code-/_next/static/css/65a3400fe882daa6.css","style"]
+3:[["children",{"s":"__PAGE__","h":160}]]
+2:[["children",{"s":{"n":"slug","t":"d","k":"island-living","s":[]},"h":96,"c":"$Q3"}]]
+1:[["children",{"s":"portfolio","h":96,"c":"$Q2"}]]
+0:{"b":"rqn3dwzdneJQ40dw6_OL1","t":{"t":{"s":"","h":80,"c":"$Q1"}}}

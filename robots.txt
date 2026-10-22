@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://nortyyyq.github.io/norty-learns-to-code-/sitemap.xml
