@@ -1,0 +1,27 @@
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const ts=require('typescript');
+const {NextRequest}=require('next/server');
+const compiled=ts.transpileModule(fs.readFileSync('app/api/inquiry/route.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020}}).outputText;
+const handler={exports:{}};
+new Function('require','module','exports',compiled)(require,handler,handler.exports);
+const call=(data,headers={})=>handler.exports.POST(new NextRequest('http://localhost:3000/api/inquiry',{method:'POST',headers:{'Content-Type':'application/json',...headers},body:JSON.stringify(data)}));
+const original={url:process.env.INQUIRY_WEBHOOK_URL,token:process.env.INQUIRY_WEBHOOK_TOKEN,fetch:global.fetch};
+(async()=>{try{
+ delete process.env.INQUIRY_WEBHOOK_URL;
+ const data={name:'Test',email:'test@example.com',type:'Hotel Photography',details:'An example hospitality project inquiry for a mocked test.'};
+ assert.equal((await call({})).status,400);
+ assert.equal((await call(data)).status,503);
+ assert.equal((await call({...data,website:'spam'})).status,400);
+ assert.equal((await call(data,{origin:'https://elsewhere.example'})).status,403);
+ assert.equal((await call(data,{'content-length':'17000'})).status,413);
+ process.env.INQUIRY_WEBHOOK_URL='https://delivery.example/inquiries';
+ process.env.INQUIRY_WEBHOOK_TOKEN='mock-test-token';
+ let delivered;
+ global.fetch=async(url,options)=>{assert.equal(url,'https://delivery.example/inquiries');assert.equal(options.headers.Authorization,'Bearer mock-test-token');delivered=JSON.parse(options.body);return new Response('{}',{status:200})};
+ const success=await call(data);assert.equal(success.status,200);assert.deepEqual(await success.json(),{success:true});assert.equal(delivered.email,data.email);
+ global.fetch=async()=>new Response('',{status:500});assert.equal((await call(data)).status,502);
+ global.fetch=async()=>{throw new Error('Connection failed')};assert.equal((await call(data)).status,502);
+ process.env.INQUIRY_WEBHOOK_URL='http://delivery.example';assert.equal((await call(data)).status,502);
+ console.log('PASS: validation, unconfigured state, spam, origin, payload size, mocked delivery, provider failure, network failure, HTTPS enforcement. No real inquiries sent.');
+ }finally{global.fetch=original.fetch;for(const[key,value]of[['INQUIRY_WEBHOOK_URL',original.url],['INQUIRY_WEBHOOK_TOKEN',original.token]]){if(value===undefined)delete process.env[key];else process.env[key]=value}}})().catch(error=>{console.error(error);process.exit(1)});
