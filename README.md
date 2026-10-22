@@ -1,4 +1,4 @@
-# Noor Evelyn Russel — Hospitality & Travel Photography
+# Noor Evelyn Russell — Hospitality & Travel Photography
 
 An editorial portfolio built with Next.js App Router, TypeScript, Tailwind CSS 4, and Motion. All projects and journal pieces are clearly marked illustrative content. No hotels are represented as clients.
 

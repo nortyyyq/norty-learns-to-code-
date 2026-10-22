@@ -1,4 +1,4 @@
-export const site = { name: 'Noor Evelyn Russel', email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'nrussell@bu.edu', phone: process.env.NEXT_PUBLIC_CONTACT_PHONE || '+1 (507) 379-7527', instagram: process.env.NEXT_PUBLIC_INSTAGRAM_URL || '', url: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000' };
+export const site = { name: 'Noor Evelyn Russell', linkedin: 'https://www.linkedin.com/in/noorruss', email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'nrussell@bu.edu', phone: process.env.NEXT_PUBLIC_CONTACT_PHONE || '+1 (507) 379-7527', instagram: process.env.NEXT_PUBLIC_INSTAGRAM_URL || '', url: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000' };
 export const photos = {
  hero:'/images/mediterranean-concept.png',
  pool:'/images/pool-concept.png',
